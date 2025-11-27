@@ -19,3 +19,9 @@ fn collatz_length(mut n: i32, mut len: u32) -> u32 {
 		}
 	}
 }
+
+fn collatz_length_test() {
+	let start = 11;
+	let length = collatz_length(start, 0);
+	println!("Collatz length of {} is {}", start, length); // should be 15
+}

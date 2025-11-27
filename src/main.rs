@@ -1,5 +1,17 @@
 include!("collatz.rs");
+include!("transpose.rs");
+include!("geometry.rs");
+
 
 fn main() {
-	println!("Length: {}", collatz_length(11, 0)); // should be 15
+	println!("\t\t------------------ Google's Comprehensive Rust Course ------------------");
+	println!("\t\t\t\t\tAttempted by AlfEspadero\n");
+
+	println!("--- Collatz Sequence Length Test ---");
+	collatz_length_test();
+	println!("\n--- Matrix Transpose Test ---");
+	transpose_test();
+	println!("\n--- 3D Geometry Test ---");
+	test_geometry();
+
 }
