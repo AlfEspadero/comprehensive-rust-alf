@@ -5,6 +5,7 @@ include!("collatz.rs");
 include!("transpose.rs");
 include!("geometry.rs");
 include!("elevator.rs");
+include!("arithmetic.rs");
 
 
 fn main() {
@@ -19,5 +20,6 @@ fn main() {
 	test_geometry();
 	println!("\n--- Elevator Simulation Test ---");
 	elevator_test();
+	println!("\n--- Arithmetic Expression Evaluation Test ---");
 
 }
