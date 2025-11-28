@@ -1,3 +1,6 @@
+// Allow dead code for elevator
+#![allow(dead_code)]
+
 include!("collatz.rs");
 include!("transpose.rs");
 include!("geometry.rs");

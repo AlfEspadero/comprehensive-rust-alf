@@ -1,12 +1,17 @@
-#[allow(dead_code)]
-
 #[derive(Debug)]
 /// An event in the elevator system that the controller must react to.
 enum Event {
-	ButtonPress(i32, Option<Direction>),
-	Arrive(i32),
+	ButtonPress(Button),
+	Arrive(Floor),
 	DoorOpen,
 	DoorClose,
+}
+type Floor = i32;
+
+#[derive(Debug)]
+enum Button {
+	LobbyCall (Direction, Floor),
+	CarFloor (Floor),
 }
 
 /// A direction of travel.
@@ -33,12 +38,12 @@ fn car_door_closed() -> Event {
 
 /// A directional button was pressed in an elevator lobby on the given floor.
 fn lobby_call_button_pressed(floor: i32, dir: Direction) -> Event {
-	return Event::ButtonPress(floor, Some(dir));
+	return Event::ButtonPress(Button::LobbyCall(dir, floor));
 }
 
 /// A floor button was pressed in the elevator car.
 fn car_floor_button_pressed(floor: i32) -> Event {
-	return Event::ButtonPress(floor, None);
+	return Event::ButtonPress(Button::CarFloor(floor));
 }
 
 fn elevator_test() {
