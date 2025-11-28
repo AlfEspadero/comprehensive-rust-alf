@@ -1,6 +1,7 @@
 include!("collatz.rs");
 include!("transpose.rs");
 include!("geometry.rs");
+include!("elevator.rs");
 
 
 fn main() {
@@ -13,5 +14,7 @@ fn main() {
 	transpose_test();
 	println!("\n--- 3D Geometry Test ---");
 	test_geometry();
+	println!("\n--- Elevator Simulation Test ---");
+	elevator_test();
 
 }
