@@ -23,7 +23,6 @@ enum Expression {
 
 fn eval(e: Expression) -> i64 {
 	match e {
-		Expression::Value(v) => v,
 		Expression::Op { op, left, right } => {
 			let l_val = eval(*left);
 			let r_val = eval(*right);
@@ -31,9 +30,10 @@ fn eval(e: Expression) -> i64 {
 				Operation::Add => l_val + r_val,
 				Operation::Sub => l_val - r_val,
 				Operation::Mul => l_val * r_val,
-				Operation::Div => if r_val != 0 { l_val / r_val } else {panic!("Division by zero")},
+				Operation::Div => l_val / r_val,
 			}
 		}
+		Expression::Value(v) => v,
 	}
 }
 

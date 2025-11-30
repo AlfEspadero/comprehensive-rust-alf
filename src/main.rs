@@ -21,5 +21,6 @@ fn main() {
 	println!("\n--- Elevator Simulation Test ---");
 	elevator_test();
 	println!("\n--- Arithmetic Expression Evaluation Test ---");
+	println!("Run cargo test to execute the arithmetic tests.");
 
 }
