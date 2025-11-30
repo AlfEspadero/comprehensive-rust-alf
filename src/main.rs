@@ -6,6 +6,7 @@ include!("transpose.rs");
 include!("geometry.rs");
 include!("elevator.rs");
 include!("arithmetic.rs");
+include!("logger.rs");
 
 
 fn main() {
@@ -22,5 +23,7 @@ fn main() {
 	elevator_test();
 	println!("\n--- Arithmetic Expression Evaluation Test ---");
 	println!("Run cargo test to execute the arithmetic tests.");
+	println!("\n--- Logger Functionality Test ---");
+	logger_test();
 
 }
