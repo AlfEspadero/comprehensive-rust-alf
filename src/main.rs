@@ -8,6 +8,7 @@ include!("elevator.rs");
 include!("arithmetic.rs");
 include!("logger.rs");
 include!("generics.rs");
+include!("counter.rs");
 
 
 fn main() {
@@ -30,5 +31,7 @@ fn main() {
 	println!("Run cargo test to execute the generics tests.");
 	println!("\n--- Filter Logger Functionality Test ---");
 	filter_test();
+	println!("\n--- Counter Functionality Test ---");
+	counter_test();
 
 }
