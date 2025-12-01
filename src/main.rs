@@ -28,5 +28,7 @@ fn main() {
 	logger_test();
 	println!("\n--- Generics Functionality Test ---");
 	println!("Run cargo test to execute the generics tests.");
+	println!("\n--- Filter Logger Functionality Test ---");
+	filter_test();
 
 }
