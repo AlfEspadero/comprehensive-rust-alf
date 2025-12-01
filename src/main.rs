@@ -7,6 +7,7 @@ include!("geometry.rs");
 include!("elevator.rs");
 include!("arithmetic.rs");
 include!("logger.rs");
+include!("generics.rs");
 
 
 fn main() {
@@ -25,5 +26,7 @@ fn main() {
 	println!("Run cargo test to execute the arithmetic tests.");
 	println!("\n--- Logger Functionality Test ---");
 	logger_test();
+	println!("\n--- Generics Functionality Test ---");
+	println!("Run cargo test to execute the generics tests.");
 
 }
