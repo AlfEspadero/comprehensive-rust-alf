@@ -11,6 +11,7 @@ include!("generics.rs");
 include!("counter.rs");
 include!("rot13.rs");
 include!("builder.rs");
+include!("btree.rs");
 
 fn main() {
 	println!("\t\t------------------ Google's Comprehensive Rust Course ------------------");
@@ -38,4 +39,6 @@ fn main() {
 	println!("Run cargo test to execute the ROT13 tests.");
 	println!("\n--- Complex Data Builder Test ---");
 	builder_test();
+	println!("\n--- Binary Tree Functionality Test ---");
+	println!("Run cargo test to execute the binary tree tests.");
 }
