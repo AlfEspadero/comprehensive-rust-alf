@@ -10,6 +10,7 @@ include!("logger.rs");
 include!("generics.rs");
 include!("counter.rs");
 include!("rot13.rs");
+include!("builder.rs");
 
 fn main() {
 	println!("\t\t------------------ Google's Comprehensive Rust Course ------------------");
@@ -20,7 +21,7 @@ fn main() {
 	println!("\n--- Matrix Transpose Test ---");
 	transpose_test();
 	println!("\n--- 3D Geometry Test ---");
-	test_geometry();
+	geometry_test();
 	println!("\n--- Elevator Simulation Test ---");
 	elevator_test();
 	println!("\n--- Arithmetic Expression Evaluation Test ---");
@@ -35,4 +36,6 @@ fn main() {
 	counter_test();
 	println!("\n--- ROT13 Cipher Test ---");
 	println!("Run cargo test to execute the ROT13 tests.");
+	println!("\n--- Complex Data Builder Test ---");
+	builder_test();
 }
