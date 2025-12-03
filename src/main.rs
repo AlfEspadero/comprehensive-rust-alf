@@ -9,7 +9,7 @@ include!("arithmetic.rs");
 include!("logger.rs");
 include!("generics.rs");
 include!("counter.rs");
-
+include!("rot13.rs");
 
 fn main() {
 	println!("\t\t------------------ Google's Comprehensive Rust Course ------------------");
@@ -33,5 +33,6 @@ fn main() {
 	filter_test();
 	println!("\n--- Counter Functionality Test ---");
 	counter_test();
-
+	println!("\n--- ROT13 Cipher Test ---");
+	println!("Run cargo test to execute the ROT13 tests.");
 }
