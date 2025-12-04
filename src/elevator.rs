@@ -10,8 +10,8 @@ type Floor = i32;
 
 #[derive(Debug)]
 enum Button {
-	LobbyCall (Direction, Floor),
-	CarFloor (Floor),
+	LobbyCall(Direction, Floor),
+	CarFloor(Floor),
 }
 
 /// A direction of travel.
@@ -23,27 +23,27 @@ enum Direction {
 
 /// The car has arrived on the given floor.
 fn car_arrived(floor: i32) -> Event {
-	return Event::Arrive(floor);
+	Event::Arrive(floor)
 }
 
 /// The car doors have opened.
 fn car_door_opened() -> Event {
-	return Event::DoorOpen;
+	Event::DoorOpen
 }
 
 /// The car doors have closed.
 fn car_door_closed() -> Event {
-	return Event::DoorClose;
+	Event::DoorClose
 }
 
 /// A directional button was pressed in an elevator lobby on the given floor.
 fn lobby_call_button_pressed(floor: i32, dir: Direction) -> Event {
-	return Event::ButtonPress(Button::LobbyCall(dir, floor));
+	Event::ButtonPress(Button::LobbyCall(dir, floor))
 }
 
 /// A floor button was pressed in the elevator car.
 fn car_floor_button_pressed(floor: i32) -> Event {
-	return Event::ButtonPress(Button::CarFloor(floor));
+	Event::ButtonPress(Button::CarFloor(floor))
 }
 
 fn elevator_test() {

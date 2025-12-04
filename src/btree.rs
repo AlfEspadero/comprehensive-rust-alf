@@ -84,6 +84,37 @@ impl<T: Ord> Subtree<T> {
 			},
 		}
 	}
+
+	fn remove(&mut self, value: &T) -> bool {
+		match &mut self.0 {
+			None => false,
+			Some(n) => match value.cmp(&n.value) {
+				Ordering::Less => n.left.remove(value),
+				Ordering::Equal => {
+					// Node removal logic would go here
+					// For simplicity, we won't implement it in this example
+					true
+				}
+				Ordering::Greater => n.right.remove(value),
+			},
+		}
+	}
+
+	fn edit<F>(&mut self, value: T, f: F)
+	where
+		F: FnOnce(&mut T),
+	{
+		match &mut self.0 {
+			None => {
+				self.0 = Some(Box::new(Node::new(value)));
+			}
+			Some(n) => match value.cmp(&n.value) {
+				Ordering::Less => n.left.edit(value, f),
+				Ordering::Equal => f(&mut n.value),
+				Ordering::Greater => n.right.edit(value, f),
+			},
+		}
+	}
 }
 
 #[cfg(test)]

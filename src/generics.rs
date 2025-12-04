@@ -1,11 +1,7 @@
 use std::cmp::Ord;
 
 fn min<T: Ord>(a: T, b: T) -> T {
-	if a < b {
-		return a;
-	} else {
-		return b;
-	}
+	if a < b { a } else { b }
 }
 
 #[test]

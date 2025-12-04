@@ -7,12 +7,12 @@ fn collatz_length(mut n: i32, mut len: u32) -> u32 {
 	}
 	match n % 2 {
 		0 => {
-			n = n / 2;
-			return collatz_length(n, len);
+			n /= 2;
+			collatz_length(n, len)
 		}
 		1 => {
 			n = 3 * n + 1;
-			return collatz_length(n, len);
+			collatz_length(n, len)
 		}
 		_ => {
 			unreachable!();

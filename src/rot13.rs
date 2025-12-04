@@ -17,7 +17,7 @@ impl<R: Read> Read for RotDecoder<R> {
 				} else {
 					b'A'
 				};
-				*byte = (((*byte - base + self.rot) % 26) + base) as u8;
+				*byte = ((*byte - base + self.rot) % 26) + base;
 			}
 		}
 		Ok(bytes_read)
