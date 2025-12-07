@@ -13,6 +13,7 @@ include!("rot13.rs");
 include!("builder.rs");
 include!("btree.rs");
 include!("health.rs");
+include!("protobuf.rs");
 
 fn main() {
 	println!("\t\t------------------ Google's Comprehensive Rust Course ------------------");
@@ -44,4 +45,6 @@ fn main() {
 	println!("Run cargo test to execute the binary tree tests.");
 	println!("\n--- Health Report System Test ---");
 	println!("Run cargo test to execute the health report tests.");
+	println!("\n--- Protobuf Serialization/Deserialization Test ---");
+	println!("Run cargo test to execute the protobuf tests.");
 }

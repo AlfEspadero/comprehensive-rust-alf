@@ -32,7 +32,7 @@ impl User {
 	pub fn visit_doctor(&mut self, measurements: Measurements) -> HealthReport<'_> {
 		self.visit_count += 1;
 
-		let h_change = (measurements.height - self.height).abs();
+		let h_change = measurements.height - self.height;
 		self.height = measurements.height;
 
 		let bp_change = match self.last_blood_pressure {
