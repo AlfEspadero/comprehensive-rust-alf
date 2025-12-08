@@ -22,7 +22,7 @@ fn normalize(point: &mut [f64; 3]) {
 
 // Use the following `main` to test your work.
 
-fn geometry_test() {
+pub fn geometry_test() {
 	println!(
 		"Magnitude of a unit vector: {}",
 		magnitude(&[0.0, 1.0, 0.0])

@@ -8,7 +8,7 @@ fn transpose(matrix: [[i32; 3]; 3]) -> [[i32; 3]; 3] {
 	result
 }
 
-fn transpose_test() {
+pub fn transpose_test() {
 	let matrix = [
 		[101, 102, 103], // <-- the comment makes rustfmt add a newline
 		[201, 202, 203],

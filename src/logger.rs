@@ -52,7 +52,7 @@ where
 	}
 }
 
-fn logger_test() {
+pub fn logger_test() {
 	let logger = VerbosityFilter {
 		max_verbosity: 3,
 		inner: StderrLogger,
@@ -61,7 +61,7 @@ fn logger_test() {
 	logger.log(2, "Uhoh");
 }
 
-fn filter_test() {
+pub fn filter_test() {
 	let logger = Filter::new(StderrLogger, |_verbosity, msg| msg.contains("yikes"));
 	logger.log(5, "FYI");
 	logger.log(1, "yikes, something went wrong");

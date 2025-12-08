@@ -46,7 +46,7 @@ fn car_floor_button_pressed(floor: i32) -> Event {
 	Event::ButtonPress(Button::CarFloor(floor))
 }
 
-fn elevator_test() {
+pub fn elevator_test() {
 	println!(
 		"A ground floor passenger has pressed the up button: {:?}",
 		lobby_call_button_pressed(0, Direction::Up)

@@ -76,7 +76,7 @@ impl PackageBuilder {
 	}
 }
 
-fn builder_test() {
+pub fn builder_test() {
 	let base64 = PackageBuilder::new("base64").version("0.13").build();
 	dbg!(&base64);
 	let log = PackageBuilder::new("log")
