@@ -10,6 +10,7 @@ mod elevator;
 mod generics;
 mod geometry;
 mod health;
+mod iterators;
 mod logger;
 mod protobuf;
 mod rot13;
@@ -47,4 +48,6 @@ fn main() {
 	println!("Run cargo test to execute the health report tests.");
 	println!("\n--- Protobuf Serialization/Deserialization Test ---");
 	println!("Run cargo test to execute the protobuf tests.");
+	println!("\n--- Iterators Functionality Test ---");
+	println!("Run cargo test to execute the iterators tests.");
 }
