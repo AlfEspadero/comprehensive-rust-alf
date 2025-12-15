@@ -9,6 +9,7 @@ mod counter;
 mod elevator;
 mod generics;
 mod geometry;
+mod gui;
 mod health;
 mod iterators;
 mod logger;
@@ -50,4 +51,6 @@ fn main() {
 	println!("Run cargo test to execute the protobuf tests.");
 	println!("\n--- Iterators Functionality Test ---");
 	println!("Run cargo test to execute the iterators tests.");
+	println!("\n--- GUI Widget Rendering Test ---");
+	gui::gui_test();
 }

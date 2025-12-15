@@ -1,0 +1,57 @@
+use crate::gui::widget::Widget;
+
+pub struct Label {
+	label: String,
+}
+
+impl Label {
+	pub fn new(label: &str) -> Label {
+		Label {
+			label: label.to_owned(),
+		}
+	}
+}
+
+pub struct Button {
+	label: Label,
+}
+
+impl Button {
+	pub fn new(label: &str) -> Button {
+		Button {
+			label: Label::new(label),
+		}
+	}
+}
+
+impl Widget for Button {
+	fn width(&self) -> usize {
+		self.label.width() + 8 // add a bit of padding
+	}
+
+	fn draw_into(&self, buffer: &mut dyn std::fmt::Write) {
+		let width = self.width();
+		let mut label = String::new();
+		self.label.draw_into(&mut label);
+
+		writeln!(buffer, "+{:-<width$}+", "").unwrap();
+		for line in label.lines() {
+			writeln!(buffer, "|{:^width$}|", &line).unwrap();
+		}
+		writeln!(buffer, "+{:-<width$}+", "").unwrap();
+	}
+}
+
+impl Widget for Label {
+	fn width(&self) -> usize {
+		self.label
+			.lines()
+			.map(|line| line.chars().count())
+			.max()
+			.unwrap_or(0)
+	}
+
+	fn draw_into(&self, buffer: &mut dyn std::fmt::Write) {
+		writeln!(buffer, "{}", &self.label).unwrap();
+	}
+}
