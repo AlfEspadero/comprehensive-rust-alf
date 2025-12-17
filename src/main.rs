@@ -13,6 +13,7 @@ mod gui;
 mod health;
 mod iterators;
 mod logger;
+mod luhn;
 mod protobuf;
 mod rot13;
 mod transpose;
@@ -53,4 +54,6 @@ fn main() {
 	println!("Run cargo test to execute the iterators tests.");
 	println!("\n--- GUI Widget Rendering Test ---");
 	gui::gui_test();
+	println!("\n--- Luhn Algorithm Test ---");
+	println!("Run cargo test to execute the Luhn algorithm tests.");
 }
