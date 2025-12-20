@@ -17,6 +17,7 @@ mod luhn;
 mod protobuf;
 mod rot13;
 mod transpose;
+mod wrapper;
 
 fn main() {
 	println!("\t\t------------------ Google's Comprehensive Rust Course ------------------");
@@ -56,4 +57,6 @@ fn main() {
 	gui::gui_test();
 	println!("\n--- Luhn Algorithm Test ---");
 	println!("Run cargo test to execute the Luhn algorithm tests.");
+	println!("\n--- FFI WrapperFunctionality Test ---");
+	wrapper::wrapper_test();
 }
