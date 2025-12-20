@@ -43,4 +43,3 @@ pub fn counter_test() {
 	strctr.count("apple");
 	println!("got {} apples", strctr.times_seen("apple"));
 }
-

@@ -11,4 +11,3 @@ pub fn gui_test() {
 	window.add_widget(Box::new(Button::new("Click me!")));
 	window.draw();
 }
-

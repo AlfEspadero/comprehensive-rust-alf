@@ -58,5 +58,5 @@ fn main() {
 	println!("\n--- Luhn Algorithm Test ---");
 	println!("Run cargo test to execute the Luhn algorithm tests.");
 	println!("\n--- FFI WrapperFunctionality Test ---");
-	wrapper::wrapper_test();
+	wrapper::wrapper_test().unwrap();
 }

@@ -1,6 +1,3 @@
-// TODO: remove this when you're done with your implementation.
-#![allow(unused_imports, unused_variables, dead_code)]
-
 mod ffi {
 	use std::os::raw::{c_char, c_int};
 	#[cfg(not(target_os = "macos"))]
@@ -8,7 +5,7 @@ mod ffi {
 
 	// Opaque type. See https://doc.rust-lang.org/nomicon/ffi.html.
 	#[repr(C)]
-	pub struct DIR {
+	pub struct Dir {
 		_data: [u8; 0],
 		_marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 	}
@@ -18,7 +15,7 @@ mod ffi {
 	// /usr/include/x86_64-linux-gnu/{sys/types.h, bits/typesizes.h}.
 	#[cfg(not(target_os = "macos"))]
 	#[repr(C)]
-	pub struct dirent {
+	pub struct Dirent {
 		pub d_ino: c_ulong,
 		pub d_off: c_long,
 		pub d_reclen: c_ushort,
@@ -39,10 +36,10 @@ mod ffi {
 	}
 
 	unsafe extern "C" {
-		pub unsafe fn opendir(s: *const c_char) -> *mut DIR;
+		pub unsafe fn opendir(s: *const c_char) -> *mut Dir;
 
 		#[cfg(not(all(target_os = "macos", target_arch = "x86_64")))]
-		pub unsafe fn readdir(s: *mut DIR) -> *const dirent;
+		pub unsafe fn readdir(s: *mut Dir) -> *const Dirent;
 
 		// See https://github.com/rust-lang/libc/issues/414 and the section on
 		// _DARWIN_FEATURE_64_BIT_INODE in the macOS man page for stat(2).
@@ -51,9 +48,9 @@ mod ffi {
 		// to macOS (as opposed to iOS / wearOS / etc.) on Intel and PowerPC.
 		#[cfg(all(target_os = "macos", target_arch = "x86_64"))]
 		#[link_name = "readdir$INODE64"]
-		pub unsafe fn readdir(s: *mut DIR) -> *const dirent;
+		pub unsafe fn readdir(s: *mut Dir) -> *const Dirent;
 
-		pub unsafe fn closedir(s: *mut DIR) -> c_int;
+		pub unsafe fn closedir(s: *mut Dir) -> c_int;
 	}
 }
 
@@ -63,7 +60,7 @@ use std::os::unix::ffi::OsStrExt;
 #[derive(Debug)]
 struct DirectoryIterator {
 	path: CString,
-	dir: *mut ffi::DIR,
+	dir: *mut ffi::Dir,
 }
 
 impl DirectoryIterator {
@@ -97,10 +94,9 @@ impl Iterator for DirectoryIterator {
 			None
 		} else {
 			// Convert the d_name field to an OsString and return it.
-			let d_name_ptr = unsafe { &(*dirent_ptr).d_name as *const i8 };
-			let c_str = unsafe { CStr::from_ptr(d_name_ptr) };
-			let os_str = OsStr::from_bytes(c_str.to_bytes());
-			Some(os_str.to_os_string())
+			let d_name = unsafe { CStr::from_ptr((*dirent_ptr).d_name.as_ptr()) };
+			let os_string = OsStr::from_bytes(d_name.to_bytes()).to_os_string();
+			Some(os_string.to_owned())
 		}
 	}
 }
@@ -108,8 +104,8 @@ impl Iterator for DirectoryIterator {
 impl Drop for DirectoryIterator {
 	fn drop(&mut self) {
 		// Call closedir as needed.
-		unsafe {
-			ffi::closedir(self.dir);
+		if unsafe { ffi::closedir(self.dir) } != 0 {
+			panic!("Failed to close directory: {}", self.path.to_string_lossy());
 		}
 	}
 }
