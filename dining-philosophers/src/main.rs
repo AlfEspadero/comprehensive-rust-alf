@@ -8,7 +8,7 @@ struct Philosopher {
 	name: String,
 	left_chopstick: Arc<Mutex<Chopstick>>,
 	right_chopstick: Arc<Mutex<Chopstick>>,
-	thoughts: mpsc::Sender<String>,
+	thoughts: mpsc::SyncSender<String>,
 }
 
 impl Philosopher {
@@ -19,14 +19,8 @@ impl Philosopher {
 	}
 
 	fn eat(&self) {
-		// To avoid deadlock, always pick up the lower-numbered chopstick first
-		let (first, second) = if self.name == PHILOSOPHERS[0] {
-			(&self.left_chopstick, &self.right_chopstick)
-		} else {
-			(&self.right_chopstick, &self.left_chopstick)
-		};
-		let _first_lock = first.lock().unwrap();
-		let _second_lock = second.lock().unwrap();
+		let _left = self.left_chopstick.lock().unwrap();
+		let _right = self.right_chopstick.lock().unwrap();
 		println!("{} is eating...", &self.name);
 		thread::sleep(Duration::from_millis(10));
 	}
@@ -36,25 +30,38 @@ static PHILOSOPHERS: &[&str] = &["Socrates", "Hypatia", "Plato", "Aristotle", "P
 
 fn main() {
 	// Create chopsticks
-	let chopsticks: Vec<Arc<Mutex<Chopstick>>> = (0..PHILOSOPHERS.len())
+	let chopsticks = PHILOSOPHERS
+		.iter()
 		.map(|_| Arc::new(Mutex::new(Chopstick)))
-		.collect();
+		.collect::<Vec<_>>();
 
 	// Create philosophers
-	let (tx, rx) = mpsc::channel();
+	let (tx, rx) = mpsc::sync_channel(10);
+
 	let philosophers: Vec<Philosopher> = PHILOSOPHERS
 		.iter()
 		.enumerate()
-		.map(|(i, &name)| Philosopher {
-			name: name.to_string(),
-			left_chopstick: chopsticks[i].clone(),
-			right_chopstick: chopsticks[(i + 1) % PHILOSOPHERS.len()].clone(),
-			thoughts: tx.clone(),
+		.map(|(i, &name)| {
+			let mut l_chopstick = Arc::clone(&chopsticks[i]);
+			let mut r_chopstick = Arc::clone(&chopsticks[(i + 1) % PHILOSOPHERS.len()]);
+
+			// To avoid a deadlock, we have to break the symmetry
+			// somewhere. This will swap the chopsticks without deinitializing
+			// either of them.
+			if i == chopsticks.len() - 1 {
+				std::mem::swap(&mut l_chopstick, &mut r_chopstick);
+			}
+
+			Philosopher {
+				name: name.to_string(),
+				left_chopstick: l_chopstick,
+				right_chopstick: r_chopstick,
+				thoughts: tx.clone(),
+			}
 		})
 		.collect();
 
 	// Make each of them think and eat 100 times
-
 	let handles: Vec<_> = philosophers
 		.into_iter()
 		.map(|philosopher| {
@@ -63,6 +70,7 @@ fn main() {
 					philosopher.think();
 					philosopher.eat();
 				}
+				println!("{} is done eating.", philosopher.name);
 			})
 		})
 		.collect();
