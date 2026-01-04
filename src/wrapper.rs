@@ -26,7 +26,7 @@ mod ffi {
 	// Layout according to the macOS man page for dir(5).
 	#[cfg(target_os = "macos")]
 	#[repr(C)]
-	pub struct dirent {
+	pub struct Dirent {
 		pub d_fileno: u64,
 		pub d_seekoff: u64,
 		pub d_reclen: u16,

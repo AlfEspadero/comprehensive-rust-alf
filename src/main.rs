@@ -2,6 +2,7 @@
 #![allow(dead_code)]
 
 mod arithmetic;
+mod arithmetic2;
 mod btree;
 mod builder;
 mod collatz;
@@ -59,4 +60,6 @@ fn main() {
 	println!("Run cargo test to execute the Luhn algorithm tests.");
 	println!("\n--- FFI WrapperFunctionality Test ---");
 	wrapper::wrapper_test().unwrap();
+	println!("\n--- Arithmetic2 Expression Evaluation Test ---");
+	println!("Run cargo test to execute the arithmetic2 tests.");
 }
